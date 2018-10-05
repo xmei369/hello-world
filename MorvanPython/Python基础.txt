@@ -1,0 +1,546 @@
+1. 基本使用
+1.1. print功能
+
+print('I\'m good')
+
+print('apple' + str(1))
+
+print(int('1')+2)
+
+print(float('1.2') + 2)
+
+
+1.2. 基础数学运算
+
+2**3 # 2的3次方
+
+
+1.3. 变量
+
+IDLE：打开python的IDLE；
+新建module：菜单栏File-New File；
+Run-Run Module(F5)。
+
+a,b,c = 1,2,3
+
+
+2. 循环
+2.1. while循环
+终止while True无限循环，用Ctrl+C。
+
+
+2.2. for循环
+加tab：选中所需的行，按Tab键或用Ctrl+](Win)、Command+](Mac)。
+删除多于的tab：Ctrl+[(Win)；Command+[(Mac)。
+
+for相当于迭代器。
+for i in range(1,10, 2): # 只有1~9九个数，步长2（默认起始为0，步长1。终止不能缺省）。
+
+
+3. if判断
+3.1. if判断
+x,y,z = 1,2,0
+if x<y>z: # 可以连续不等式
+    print('x is less than y, and y is greater than z')
+
+3.2. if else判断
+
+
+3.3. if elif else判断
+
+elif也可以打成else if。
+
+
+4. 定义功能
+4.1. def函数
+def function():
+    print('This is a function')
+function()
+
+4.2. 函数参数
+def fun(a,b):
+    c = a*b
+    print('the c is',c) # 唔：is后面不用加空格，输出时会自动加空格。
+fun(a=2,b=5)
+
+4.3. 函数默认参数
+def sale_car(price, colour='red', brand='camery', is_second_hand=True):
+    print('price:',price,
+          'colour:',colour,
+          'brand:',brand,
+          'is second hand:',is_second_hand)
+sale_car(1000, colour='blue')    
+注意：未预先定义的要放在前面，有默认值的放在后面。
+
+
+5. 变量形式
+全局&局部 变量
+
+APPLE=100 # 全局变量一般习惯上用大写。
+def fun():
+    a=APPLE
+    return a+100
+print(APPLE) # 无法输出局部变量print(a)
+print(fun())
+
+在局部使用全局变量：
+a = None
+def fun():
+    global a # 指定为是全局的那个变量a；否则这里的a是局部变量，与全局的a不同。
+    a = 20 # 不能边申明是global边赋值，如global a = 20会报错。
+print('a before:',a)
+print(fun()) # 运行函数后改变了全局变量a的值。
+print('a after:',a)
+
+
+6. 模块安装
+以numpy模块为例。
+
+Win下下载安装程序：
+https://sourceforge.net/projects/numpy/files/NumPy/1.9.2/
+
+Mac下用pip3程序：
+$ sudo pip3 install numpy # 安装
+$ sudo pip3 install numpy-1.9.2 # 可能是安装指定版本
+$ sudo pip3 install -U numpy # 升级
+$ sudo pip3 uninstall numpy # 卸载
+
+
+7. 文件读取
+7.1. 读写文件1：新建
+text = 'This is my first test.\nThis is next line.\nThis is last line.'
+my_file = open(file='my file.txt', mode='w') # 以“写入”模式打开一个文件，不存在则会新建。
+my_file.write(text) # 写入内容
+my_file.close() # 关闭文件，在脚本所在目录下生成一个新的文件。
+
+7.2. 读写文件2：追加
+append_text = '\nThis is appended file.'
+my_file = open(file='my file.txt', mode='a') # 打开文件的模式为“追加”。
+my_file.write(append_text)
+my_file.close()
+
+7.3. 读写文件2：读入
+file = open('my file.txt', 'r') # 读取的是文件而不是文件内容
+content = file.read() # 读取文件的内容
+print(content)
+
+content = file.readline() # 逐行读入。
+print(content) # 输出第一行
+content = file.readline()
+print(content) # 输出第二行
+
+contentList = file.readlines() # 读入所有行存为一个list。
+print(contentList)
+
+
+8. class类
+8.1. 类
+一般习惯上首字母大写。
+class Calculator: # 定义一个计算器的类
+    name = 'Good calculator' # 定义类的属性-计算器名称，储存在self中
+    price = 18 # 定义类的属性-计算器价格
+    def add(self,x,y): # 继承self（包含名称和价格信息）
+        print(self.name) # 输出属性中的name
+        result = x + y
+        print(result)
+    def minus(self,x,y):
+        result = x - y
+        print(result)
+    def times(self,x,y):
+        result = x * y
+        print(result)
+    def divide(self,x,y):
+        result = x / y
+        print(result)
+
+calcul = Calculator() # 把类赋给变量
+print(calcul.price) # 输出类的属性中的价格
+calcul.add(10,1) # 调用类中的函数
+calcul.minus(10,1)
+
+唔：类就像一个小模块，既可以储存信息（像R中的S4对象），也可以储存函数工具。
+
+8.2. 类中的init功能
+class Calculator:
+    name = 'Good calculator'
+    price = 18
+    def __init__(self,name,price,height=18,width,weight):
+        self.name=name # 给定属性
+        self.price=price
+        self.height=height
+        self.wi = width # self后面的名称可以变换，相当于在定义self的各个属性名；而等号右边的只是init函数的参数。
+        self.we = weight
+        self.add(1,2) # 把类赋给变量后会直接输出这个加法的结果
+    def add(self,x,y): # 继承self
+        print(self.name) # 输出属性中的name
+        result = x + y
+        print(result)
+c = Calculator('Bad calculator', 12, 5, 6) # 必需给定初始参数值
+print(c.wi)
+
+唔：其实跟定义函数一样，也赋给类以初始的值（通过定义类的初始函数__init__），便于调用类时替换这些参数值；也可以在初始函数中运行其他函数，包括初始函数下面定义的函数。
+
+
+9. input输入
+a_input = int(input('Please give a number:')) # 输入的都视为str
+if a_input == 1:
+    print('This is a good one')
+elif a_input ==2:
+    print('See you next time')
+else:
+    print('Good luck')
+
+
+10. 元组、列表、字典
+10.1. 元组 列表
+a_tuple = (1,2,3,5,15,6)
+b_tuple = 2,4,5,6,3 # 另一种定义的格式。
+
+a_list = [12,3,56,67,4]
+
+for content in a_tuple:
+    print(content)
+for content in a_list:
+    print(content)
+
+for index in range(len(a_tuple)):
+    print('index=',index,'number in tuple=',a_tuple[index]) # 从0开始
+
+for index in range(len(a_list)):
+    print('index=',index,'number in list=',a_list[index])
+    
+
+10.2. 列表
+a = [1,2,3,4,5,2,1,1]
+a.append(0)
+print(a)
+
+a = [1,2,3,4,5,2,1,1]
+a.insert(1,0) # 第一位后插入0
+print(a)
+
+a = [1,2,3,4,5,2,1,1]
+a.remove(2) # 移除第一次出现的2
+print(a)
+
+a = [1,2,3,4,5,2,1,-1]
+print(a[0])
+print(a[-1])
+print(a[0:3])
+print(a[:3])
+print(a[-3:])
+print(a.index(2)) # 第一个2的索引
+print(a.count(2)) # 值2的次数
+
+a.sort() # 排序后原来的a会被替换掉
+print(a)
+
+a.sort(reverse=True)
+print(a)
+
+10.3. 多维列表
+numpy, pandas
+
+a = [1,2,3,4,5] # 可视为a = [[1,2,3,4,5]]
+multi_dim_a = [[1,2,3],
+               [2,3,4],
+               [6,4,5]]
+print(a[0])
+print(multi_dim_a[0][1])
+
+
+10.4. 字典
+d = {'apple':1, 'pear':2, 'orange':{1:3,3:'a'}}
+
+def fun():
+    print('hello')
+d2 = {1:[1,2,3], '2':{1:3,3:'a'}, 'ora':fun} # 键可以是数字、字符串；值可以是列表、字典、函数
+
+print(d['apple']) # 用键查询字典里的值
+
+del d['pear'] # 删键则删除该组键值对
+print(d)
+
+d['b'] = 20 # 添加新的键值
+print(d)
+
+print(d['orange'][3]) # 输出字典中的字典的某元素
+
+
+11. 模块
+11.1. import模块
+import time
+print(time.localtime())
+
+import time as t # 给个简称
+print(t.localtime())
+
+from time import time, localtime
+print(localtime())
+print(time())
+
+from time import *
+
+
+11.2. 自己的模块
+编写一个脚本m1.py作为模块，内容是定义了一个函数：
+def printdata(data):
+    print('I am m1')
+    print(data)
+模块的脚本需在当前工作目录下，或放到python的site_packages目录下。
+
+在另一个脚本中调用m1模块：
+import m1
+m1.printdata('I am python1!')
+
+
+12. 其他
+12.1. continue & break
+不用这两个命令：
+a = True
+while a:
+    b = input('type something:')
+    if b == '1':
+        a = False
+    else:
+        pass
+print('finish run')
+
+用break跳出循环：
+while True:
+    b = input('type something:')
+    if b == '1':
+        break
+    else:
+        pass
+    print('still in while loop')
+print('finish run')
+
+用continue直接进入下一个循环（不进行循环中剩余的语句）：
+while True:
+    b = input('type something:')
+    if b == '1':
+        continue
+    else:
+        pass
+    print('still in while loop')
+
+注意：用了continue后不再执行剩余的语句，包括if后面的print语句。而像前面用a=False的话，还是会执行完这一轮循环的所有语句，即会输出“still in while loop”：
+a = True
+while True:
+    b = input('type something:')
+    if b == '1':
+        a = False
+    else:
+        pass
+    print('still in while loop')
+print('finish run')
+
+
+12.2. try错误处理
+try:
+    file = open('eeeee', 'r+') # 以只读加写入的模式
+    
+except Exception as e: # 如果try结果报错，执行exception语句
+    print(e) # 输出错误信息
+    print('There is no file named eeeee')
+    response = input('Do you want to create a new file?')
+    if response == 'y':
+        file = open('eeeee', 'w')
+    else:
+        pass
+
+else: # 这是对应try的else，如果try的结果是对的，下面就写入字符串
+    file.write('ssss')
+file.close()
+
+
+12.3. zip lambda map
+a = [1,2,3]
+b = [4,5,6]
+print(zip(a,b)) # 只输出为zip对象及其地址
+print(list(zip(a,b))) # 显示为两两组合
+
+# 可作为迭代器的输出
+for i,j in zip(a,b):
+    print(i/2, j*2)
+    
+# 也可以三个组合
+print(list(zip(a,a,b))）
+
+# 函数定义的普通方式
+def fun1(x,y):
+    return(x+y)
+fun1(2,3)
+
+# 用lambda快速定义简单函数
+fun2 = lambda x,y: x+y
+fun2(2,3)
+
+map(fun1, [1], [2]) # 输出为map对象。值用列表形式，返回也是列表
+list(map(fun1, [1], [2]))
+list(map(fun1, [1,3], [2,5])) # 对应元素两两运算
+
+唔：zip是把列表元素两两对应；lambda是快速构建函数；map是把函数及其值（尤其是多组值）组合起来。
+
+
+12.4. copy & deepcopy浅复制和深复制
+import copy
+a = [1,2,3]
+b = a # 最表层的拷贝，第一层的地址都一样
+print(id(a))
+print(id(b)) # 地址相同。所以一个变量的值改变，另一个也变
+print(id(a) == id(b))
+
+c = copy.copy(a) # 浅拷贝只是拷贝值，而第一层的地址不同
+print(id(a) == id(c))
+
+a = [1,2,[3,4]]
+d = copy.copy(a)
+print(id(a) == id(d))
+print(id(a[2]) == id(d[2])) # 但第二层列表的地址是一样的，值会跟着变
+
+e = copy.deepcopy(a)
+print(id(a[2]) == id(e[2])) # 深拷贝是完全拷贝，没有任何相同地址的元素
+
+
+12.5. threading多线程
+
+
+12.6. multiprocessing多进程
+
+
+12.7. tkinter窗口
+
+
+
+12.8. pickle保存数据
+import pickle
+
+a_dict = {'da':111, 2:[23,1,4], '23':{1:2,'d':'sad'}}
+
+file = open('pickle_example.pickle', 'wb') # 写入为二进制的模式，无法直接打开阅读
+pickle.dump(a_dict, file) # 把字典a_dict的内容倒入file
+file.close()
+
+file = open('pickle_example.pickle', 'rb') # 打开pickle文件
+a_dict1 = pickle.load(file) # 把内容倒出来
+file.close()
+print(a_dict1)
+
+写入和读取都可以用with，会自动关闭文件：
+with open('pickle_example.pickle', 'rb') as file:
+    a_dict1 = pickle.load(file)
+print(a_dict1)
+
+
+12.9. set找不同
+char_list = ['a', 'b', 'c', 'c', 'd', 'd', 'd']
+print(set(char_list)) # 可以去重。用了大括号，但不是字典
+print(type(set(char_list)))
+print(type({1:3}))
+
+sentence = 'Welcome Back to This Tutorial'
+print(set(sentence))
+
+unique_char = set(char_list)
+unique_char.add('x') # 追加
+print(unique_char)
+
+unique_char.clear() # 清除
+print(unique_char)
+
+unique_char.remove('x') # 追加
+print(unique_char.remove('x')) # 返回是None
+print(unique_char)
+
+print(unique_char.remove('y')) # 不存在y会报错
+print(unique_char.discard('y')) # 不报错，且返回列表内容
+
+set1 = unique_char
+set2 = {'a', 'e', 'i'}
+print(set1.difference(set2)) # set1中有而set2中没有
+print(set1.intersection(set2)) # 交集
+
+
+12.10. 正则表达式
+import re
+
+pattern1 = 'cat'
+pattern2 = 'bird'
+string = 'dog runs to cat'
+
+print(pattern1 in string)
+print(pattern2 in string)
+
+print(re.search(pattern1, string))
+print(re.search(pattern2, string))
+
+ptn = r"r[au]n" # 开头的r表示使用正则表达式
+print(re.search(ptn, 'dog rans to cat'))
+
+print(re.search(r"r[A-Z]n", 'dog runs to cat'))
+print(re.search(r"r[a-z]n", 'dog runs to cat'))
+print(re.search(r"r[0-9]n", 'dog r2s to cat'))
+print(re.search(r"r[0-9a-z]n", 'dog runs to cat'))
+
+print(re.search(r"r\dn", 'dog r4s to cat')) # 数字
+print(re.search(r"r\Dn", 'dog r4s ran to cat')) # 非数字
+
+print(re.search(r"r\sn", 'dog r4s to cat')) # 空白符\t\n\r\f\v
+print(re.search(r"r\Sn", 'dog r4s to cat')) # 非空白符
+
+print(re.search(r"r\wn", 'dog r4s to cat')) # 字母数字下划线[a-zA-Z0-9]
+print(re.search(r"r\Wn", 'dog r4s to cat')) # 非字母数字下划线
+
+print(re.search(r"\bruns\b", 'dog runs to cat')) # 仅相邻空格可以
+print(re.search(r"\Bruns\B", 'dog  runs  to cat')) # 无论多少空格都可以
+
+print(re.search(r"runs\\", 'dog runs\ to cat'))
+print(re.search(r"r.n", 'dog r[ns to cat')) # 代替除了换行符\n以外的任何字符
+
+
+r"^dog" # 句首
+r"dog$" # 句尾
+
+print(re.search(r"Mon(day)?", 'Monday')) # 有无day都匹配
+print(re.search(r"Mon(day)?", 'Mond'))
+
+string = """
+dog runs to cat,
+I run to dog.
+"""
+print(re.search(r"^I", string)) # 只匹配字符串的首字符
+print(re.search(r"^I", string, flags = re.M)) # Multi-line，把每一行都单独匹配
+
+r"ab*" # b出现0或多次
+r"ab+" # b出现1或多次
+r"ab{2,10}" # b出现2到10次
+
+
+# group
+match = re.search(r"(\d+), Date: (.+)", "ID: 021523, Date: Feb/12/2017")
+print(match.group())
+print(match.group(1)) # 第一个括号里匹配到的东西
+print(match.group(2)) # 第二个括号里匹配到的东西
+
+match = re.search(r"(?P<id>\d+), Date: (?P<date>.+)", "ID: 021523, Date: Feb/12/2017")
+print(match.group())
+print(match.group('id')) # 用名字代替前面的数字
+print(match.group('date'))
+
+
+print(re.findall(r"r[ua]n", "run ran ren")) # 找出所有
+print(re.findall(r"(run|ran)", "run ran ren")) # 找出run,ran
+print(re.findall(r"r(u|a)n", "run ran ren")) # 找出u,a
+
+print(re.sub(r"r[au]ns", "catches", "dog runs to cat")) # 替换为catches
+
+
+# 分裂
+print(re.split(r"[,;\.]", "a;b,c.d;e")) # 用逗号、分号、点（需转义）来分裂
+
+
+# compile
+compiled_re = re.complie(r"r[ua]n") # 先编译模式，下面再搜索
+print(complied_re.search("dog ran to cat"))
