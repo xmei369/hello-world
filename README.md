@@ -1,7 +1,7 @@
 # hello-world
-My study notes on computer languages
+My study notes on computer languages  
 
 
-Linux
-R
-Python3
+Linux  
+R  
+Python3  
