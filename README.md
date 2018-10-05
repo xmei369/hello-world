@@ -1,6 +1,7 @@
 # hello-world
-just another repository
+My study notes on computer languages
 
 
-jdslfjsi moom nsdfmoon dsj;f
-dfjsldjflsda;kjdf
+Linux
+R
+Python3
